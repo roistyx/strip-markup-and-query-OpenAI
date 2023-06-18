@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Jimp App</title>
+  </head>
+  <body>
+    <h1>Summarize Article</h1>
+
+    <form id="submitForm">
+      <input type="text" id="urlInput" accept="image/*" name="image" required />
+      <button type="submit">Send</button>
+      <p id="message">Send URL</p>
+    </form>
+
+    <script>
+      const submitForm = document.getElementById("submitForm");
+      const urlInput = document.getElementById("urlInput");
+      const message = document.getElementById("message");
+
+      submitForm.addEventListener("submit", getUserUrl);
+
+      async function getUserUrl() {
+        event.preventDefault();
+
+        const url = urlInput.value;
+
+        try {
+          const response = await fetch("http://localhost:3100/extract", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ url }),
+          });
+          const data = await response.json();
+
+          message.innerHTML = data.text;
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
+      }
+    </script>
+  </body>
+</html>
