@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Jimp App</title>
+    <title>Extract and Summarize</title>
   </head>
   <body>
     <h1>Summarize Article</h1>
-
+    <a href="http://localhost:3100/tokenize.html">Get Token</a>
     <form id="submitForm">
       <input type="text" id="urlInput" accept="image/*" name="image" required />
       <button type="submit">Send</button>
@@ -23,6 +23,7 @@
         event.preventDefault();
 
         const url = urlInput.value;
+        const token = localStorage.getItem("token");
 
         try {
           const response = await fetch("http://localhost:3100/extract", {
@@ -30,7 +31,7 @@
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ url }),
+            body: JSON.stringify({ url, token }),
           });
           const data = await response.json();
 

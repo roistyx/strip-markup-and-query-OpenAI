@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Jimp App</title>
+  </head>
+  <body>
+    <h1>Get tokenized</h1>
+
+    <form id="submitForm">
+      <input
+        type="text"
+        id="tokenInput"
+        accept="image/*"
+        name="image"
+        required />
+      <button type="submit">Send</button>
+      <p id="message">Get Token</p>
+    </form>
+
+    <script>
+      const submitForm = document.getElementById("submitForm");
+      const tokenInput = document.getElementById("tokenInput");
+      const message = document.getElementById("message");
+
+      submitForm.addEventListener("submit", sendToken);
+
+      async function sendToken() {
+        event.preventDefault();
+
+        const token = tokenInput.value;
+
+        localStorage.setItem("token", token);
+
+        // try {
+        //   const response = await fetch("http://localhost:3100/tokenize", {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({ token }),
+        //   });
+        // } catch (error) {
+        //   console.error("Error uploading image:", error);
+        // }
+      }
+    </script>
+  </body>
+</html>
